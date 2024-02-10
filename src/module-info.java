@@ -1,0 +1,2 @@
+module try_New {
+}
