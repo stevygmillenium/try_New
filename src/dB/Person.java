@@ -15,7 +15,7 @@ public class Person implements Data{
 		file.createNewFile();
 		FileWriter writer=new FileWriter(file);
 		writer.write(name);
-		writer.write(" "+email);
+		writer.write(","+email);
 		writer.write("\n");
 		writer.flush();
 		writer.close();
@@ -26,7 +26,7 @@ public class Person implements Data{
 		File file=new File("data.txt");
 		FileWriter writer=new FileWriter(file,true);
 		writer.write(name);
-		writer.write(" "+email);
+		writer.write(","+email);
 		writer.write("\n");
 		writer.flush();
 		writer.close();

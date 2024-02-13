@@ -2,9 +2,15 @@ package dB;
 
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileNotFoundException;
+//import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.Arrays;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Scanner;
 
 public class sr_Db {
@@ -61,8 +67,8 @@ public class sr_Db {
 			if(amt==1) {
 				person.appendfile();}
 			else if(amt>1) {
-				persons[0].writefile();
-				for(int i=1;i<persons.length;i++) {
+				//persons[0].writefile();
+				for(int i=0;i<persons.length;i++) {
 					persons[i].appendfile();
 				}
 			}
@@ -71,7 +77,9 @@ public class sr_Db {
 			}
 		}
 		else {}
+		sc.close();
 		readfile();
+		//System.out.print(rec_search("a"));
 	}
 	public static void show_person(Person p) {
 		System.out.println(p.name);
@@ -88,6 +96,34 @@ public class sr_Db {
 		}
 		System.out.print(str);
 		reader.close();
+	}
+	public static String rec_search(String em) throws IOException {
+		File file=new File("data.txt");
+		String line=null;
+		FileReader reader=new FileReader(file);
+		BufferedReader br=new BufferedReader(reader);
+		//StringBuffer str=new StringBuffer("");
+		Path path=Paths.get(file.getAbsolutePath());
+		int lc=(int) Files.lines(path).count(),i = 0;
+		Person[]persons =new Person[lc];
+		while((line=br.readLine())!=null) {
+			String ln[]=line.split(",");
+			Person person=new Person(ln[0], ln[1]);
+			persons[i]=person;
+			i++;
+		}
+		reader.close();
+		List<Person>pl=Arrays.asList(persons);
+		Person p;
+		String rec = null;
+		Iterator<Person>pi=pl.iterator();
+		while(pi.hasNext()) {
+			p=pi.next();
+			if(p.email.equals(em)) {
+				rec=p.name+" "+p.email;
+			}
+		}
+		return rec;
 	}
 
 }
