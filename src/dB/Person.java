@@ -4,9 +4,11 @@ import java.io.*;
 public class Person implements Data{
 	public String name="";
 	public String email="";
-	Person(String name,String email){
+	public Per_type p_type=null;
+	Person(String name,String email,Per_type p_type){
 		this.name=name;
 		this.email=email;
+		this.p_type=p_type;
 	}
 	@Override
 	public void writefile() throws IOException {
@@ -16,6 +18,7 @@ public class Person implements Data{
 		FileWriter writer=new FileWriter(file);
 		writer.write(name);
 		writer.write(","+email);
+		writer.write(","+p_type);
 		writer.write("\n");
 		writer.flush();
 		writer.close();
@@ -27,6 +30,7 @@ public class Person implements Data{
 		FileWriter writer=new FileWriter(file,true);
 		writer.write(name);
 		writer.write(","+email);
+		writer.write(","+p_type);
 		writer.write("\n");
 		writer.flush();
 		writer.close();

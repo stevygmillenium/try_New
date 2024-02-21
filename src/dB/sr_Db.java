@@ -28,7 +28,20 @@ public class sr_Db {
 			String nm=sc.next();
 			System.out.println("Please enter the email");
 			String em=sc.next();
-			person= new Person(nm, em);
+			System.out.println("Please enter the type (0-staff/1-student)");
+			int type=sc.nextInt();
+			Per_type p_type;
+			switch(type) {
+			case 0:
+				p_type=Per_type.staff;
+				break;
+			case 1:
+				p_type=Per_type.student;
+				break;
+			default:
+				p_type=null;
+			}
+			person= new Person(nm, em, p_type);
 			show_person(person);
 		}
 		else if(amt>1) {
@@ -38,7 +51,20 @@ public class sr_Db {
 				String nm=sc.next();
 				System.out.println("Please enter the email");
 				String em=sc.next();
-				person= new Person(nm, em);
+				System.out.println("Please enter the type (0-staff/1-student)");
+				int type=sc.nextInt();
+				Per_type p_type;
+				switch(type) {
+				case 0:
+					p_type=Per_type.staff;
+					break;
+				case 1:
+					p_type=Per_type.student;
+					break;
+				default:
+					p_type=null;
+				}
+				person= new Person(nm, em, p_type);
 				persons[i]=person;
 				show_person(persons[i]);
 			}
@@ -84,6 +110,7 @@ public class sr_Db {
 	public static void show_person(Person p) {
 		System.out.println(p.name);
 		System.out.println(p.email);
+		System.out.println(p.p_type);
 	}
 	public static void readfile() throws IOException {
 		File file=new File("data.txt");
@@ -108,7 +135,17 @@ public class sr_Db {
 		Person[]persons =new Person[lc];
 		while((line=br.readLine())!=null) {
 			String ln[]=line.split(",");
-			Person person=new Person(ln[0], ln[1]);
+			Per_type p_type;
+			if(ln[2].equals("staff")) {
+				p_type=Per_type.staff;
+			}
+			else if(ln[2].equals("student")) {
+				p_type=Per_type.student;
+			}
+			else {
+				p_type=null;
+			}
+			Person person=new Person(ln[0], ln[1], p_type);
 			persons[i]=person;
 			i++;
 		}
@@ -120,7 +157,7 @@ public class sr_Db {
 		while(pi.hasNext()) {
 			p=pi.next();
 			if(p.email.equals(em)) {
-				rec=p.name+" "+p.email;
+				rec=p.name+" "+p.email+" "+p.p_type;
 			}
 		}
 		return rec;
