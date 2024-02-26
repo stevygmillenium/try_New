@@ -19,7 +19,7 @@ public class Zip_file {
 		String files[]= {"",""};
 		//System.out.println(zip_files(files,"filename.zip"));
 		System.out.println(view_files("filename.zip"));
-		System.out.println(unzip_files("filename.zip"));
+		System.out.println(unzip_files("filename.zip", null));
 	}
 	public static String zip_files(String files[],String filename) throws IOException {		
 		FileOutputStream fos = new FileOutputStream(filename);
@@ -49,8 +49,8 @@ public class Zip_file {
 		zf.close();
 		return sb.toString();
 	}
-	public static int unzip_files(String file) throws IOException {
-		String dir="";
+	public static int unzip_files(String file,String dir) throws IOException {
+		//String dir="";
 		ZipFile zf=new ZipFile(file);
 		Enumeration<? extends ZipEntry> entries=zf.entries();
 		while (entries.hasMoreElements()) {
