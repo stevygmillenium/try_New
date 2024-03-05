@@ -33,7 +33,7 @@ public class check_Range {
 		float mid=(nums[0]+nums[9])/2;
 		System.out.println("mid:"+mid);
 		while(num<mid) {
-			num=nums[rnd.nextInt(10)];
+			num=nums[rnd.nextInt(nums.length)];
 		}
 		System.out.println("num:"+num);
 		return (float) (num*(1+Math.random()));
