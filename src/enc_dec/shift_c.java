@@ -11,6 +11,9 @@ public class shift_c {
 		conv_data=enc_dec(data, true);
 		System.out.println(conv_data);
 		System.out.println(enc_dec(conv_data, false));
+		conv_data=enc_dec_adv(data, "o!4", true);
+		System.out.println(conv_data);
+		System.out.println(enc_dec_adv(conv_data, "o!4", false));		
 	}
 	public static String enc(String data) {
 		char[]dec_data=data.toCharArray(),conv=new char[dec_data.length];
@@ -42,7 +45,8 @@ public class shift_c {
 				conv[i]=(char) (c+1);
 				i++;
 			}
-			sb=new StringBuilder(new String(conv));
+			s_in=new String(conv);
+			sb=new StringBuilder(s_in);
 			rev=sb.reverse().toString();
 			s_out=rev;
 		}
@@ -61,5 +65,36 @@ public class shift_c {
 		else {}
 		return s_out;
 	}
-
+	public static String enc_dec_adv(String data,String key,boolean enc) {
+		char[]c_data,conv;
+		String s_out = null,s_in,s_check;
+		int i = 0,s_a=(key.charAt(0)+key.charAt(key.length()-1))-key.charAt(key.length()/2);
+		if(enc==true) {
+			c_data=(data+key).toCharArray();
+			conv=new char[c_data.length];
+			for(char c:c_data) {
+				conv[i]=(char) (c+s_a);
+				i++;
+			}
+			s_out=new String(conv);
+		}
+		else if(enc==false) {
+			c_data=data.toCharArray();
+			conv=new char[c_data.length];
+			for(char c:c_data) {
+				conv[i]=(char) (c-s_a);
+				i++;
+			}
+			s_in=new String(conv);
+			int kl=key.length();
+			s_check=s_in.substring(s_in.length()-kl, s_in.length());
+			if(key.equals(s_check)) {
+				s_out=s_in.substring(0, s_in.length()-kl);
+			}
+			else {}
+		}
+		else {}
+		return s_out;
+	}
+	
 }
