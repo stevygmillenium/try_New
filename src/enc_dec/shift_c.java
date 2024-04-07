@@ -13,7 +13,10 @@ public class shift_c {
 		System.out.println(enc_dec(conv_data, false));
 		conv_data=enc_dec_adv(data, "o!4", true);
 		System.out.println(conv_data);
-		System.out.println(enc_dec_adv(conv_data, "o!4", false));		
+		System.out.println(enc_dec_adv(conv_data, "o!4", false));
+		conv_data=enc_dec_auto(data, 142);
+		System.out.println(conv_data);
+		System.out.println(enc_dec_auto(conv_data, 142));
 	}
 	public static String enc(String data) {
 		char[]dec_data=data.toCharArray(),conv=new char[dec_data.length];
@@ -94,6 +97,29 @@ public class shift_c {
 			else {}
 		}
 		else {}
+		return s_out;
+	}
+	public static String enc_dec_auto(String data,int s_a) {
+		char[]c_data,conv;
+		String s_out,s_in;
+		int i = 0;
+		c_data=data.toCharArray();
+		conv=new char[c_data.length];
+		if(data.charAt(data.length()-1)=='0') {		
+			for(char c:c_data) {
+				conv[i]=(char) (c-s_a);
+				i++;
+			}
+			s_in=new String(conv);
+			s_out=s_in.substring(0, s_in.length()-1);
+		}
+		else {						
+			for(char c:c_data) {
+				conv[i]=(char) (c+s_a);
+				i++;
+			}
+			s_out=new String(conv)+"0";
+		}
 		return s_out;
 	}
 	
