@@ -17,6 +17,9 @@ public class shift_c {
 		conv_data=enc_dec_auto(data, 142);
 		System.out.println(conv_data);
 		System.out.println(enc_dec_auto(conv_data, 142));
+		conv_data=enc_dec_xt(data, "ofui!(#+4285", true);
+		System.out.println(conv_data);
+		System.out.println(enc_dec_xt(conv_data, "ofui!(#+4285", false));
 	}
 	public static String enc(String data) {
 		char[]dec_data=data.toCharArray(),conv=new char[dec_data.length];
@@ -121,6 +124,46 @@ public class shift_c {
 			s_out=new String(conv)+"0";
 		}
 		return s_out;
+	}
+	public static String enc_dec_xt(String data,String key,boolean enc) {
+		char[]c_data,conv;
+		int i = 0,j,key_val[];
+		char key_c[][]=new char[key.length()][data.length()];
+		for(char c:key.toCharArray()) {
+			key_c[i][0]=c;
+			i++;
+		}
+		key_val=new int[data.length()];
+		for(i=0;i<key_c.length;i++) {
+			for(j=1;j<key_c[i].length;j++) {
+				key_c[i][j]=(char) (key_c[i][j-1]+1);
+			}
+		}
+		for(i=0;i<key_c.length;i++) {
+			for(j=0;j<key_c[i].length;j++) {
+				key_val[j]+=key_c[i][j];
+			}
+		}
+		for(i=0;i<key_val.length;i++) {
+			key_val[i]/=key.length();
+		}
+		c_data=data.toCharArray();
+		conv=new char[c_data.length];
+		i=0;
+		if(enc==true) {
+			for(char c:c_data) {
+				conv[i]=(char) (c+key_val[i]);
+				i++;
+			}
+		}
+		else if(enc==false) {
+			for(char c:c_data) {
+				conv[i]=(char) (c-key_val[i]);
+				i++;
+			}
+		}
+		else {}
+		return new String(conv);
 	}
 	
 }
